@@ -1,4 +1,14 @@
-# 2025-DevOps-PF2-PARTE-2-ComD-Contenedores-MalenaGuardiaVero
+# 2025 DevOps - PF2 Contenedores
+
+**Seminario de Actualización DevOps** 
+
+**_Malena Guardia Vero_**
+**_Comisión D_**  
+**_IFTS 29_**  
+**_Fecha:_** 11/09/2025
+
+
+---
 
 ## Parte 2 - Dockerización de un proyecto existente
 
