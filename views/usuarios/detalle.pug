@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  h1 #{capitalizar(usuario.nombre)} #{capitalizar(usuario.apellido)}
+
+  .detalle-box
+    p
+      span.detail-label Teléfono:
+      | #{usuario.telefono}
+    p
+      span.detail-label Dirección:
+      | #{usuario.direccion}
+    p
+      span.detail-label Correo:
+      | #{usuario.email}
+    p
+      span.detail-label Rol:
+      | #{capitalizar(usuario.rol)}
+    p
+      span.detail-label Fecha de creación:
+      | #{new Date(usuario.createdAt).toLocaleString()}
+    p
+      span.detail-label Última actualización:
+      | #{new Date(usuario.updatedAt).toLocaleString()}
+
+  a.button-primary(href="/usuarios") ← Volver al listado

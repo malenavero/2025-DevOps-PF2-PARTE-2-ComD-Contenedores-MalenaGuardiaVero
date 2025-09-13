@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+  h1 Usuarios
+
+  .acciones-final
+    a(href="/usuarios/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Usuario
+
+  if usuarios.length === 0
+    p.sin-resultados No hay usuarios registrados.
+  else
+    .tabla-listado
+      table.listado-items
+        thead
+          tr
+            th Nombre
+            th Teléfono
+            th Dirección
+            th Correo
+            th Rol
+            th Acciones
+        tbody
+          each usuario in usuarios
+            tr
+              td #{capitalizar(usuario.nombre)} #{capitalizar(usuario.apellido)}
+              td #{usuario.telefono}
+              td #{usuario.direccion}
+              td #{usuario.email}
+              td= capitalizar(usuario.rol)
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/usuarios/${usuario._id}`, class="button button-small", title="Ver")
+                    i.fa.fa-eye
+                    | 
+                  a(href=`/usuarios/${usuario._id}/editar`, class="button button-small", title="Editar")
+                    i.fa.fa-pen
+                    | 
+                  form(method="POST", action=`/usuarios/${usuario._id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar este usuario?')",
+                      title="Eliminar"
+                    )
+                      i.fa.fa-trash
+                      | 

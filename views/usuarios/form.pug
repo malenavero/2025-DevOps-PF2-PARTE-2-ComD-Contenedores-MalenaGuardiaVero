@@ -1,0 +1,73 @@
+extends ../layout
+
+block content
+  a(href="/usuarios", class="button-primary") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Usuario' : 'Nuevo Usuario'
+
+  form(method="POST", action=modo === 'editar' ? `/usuarios/${usuario._id}?_method=PUT` : '/usuarios', autocomplete="off")
+
+    // Campos ocultos para prevenir autocompletado no deseado
+    input(type="text", name="fakeusernameremembered", style="display:none")
+    input(type="password", name="fakepasswordremembered", style="display:none")
+
+    .form-group
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", autocomplete="given-name", value=(usuario && usuario.nombre) || '', placeholder="Nombre del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'nombre'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="apellido") Apellido:
+      input#apellido(type="text", name="apellido", autocomplete="family-name", value=(usuario && usuario.apellido) || '', placeholder="Apellido del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'apellido'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="password") Contraseña:
+      input#password(type="password", name="password", autocomplete=modo === 'editar' ? 'current-password' : 'new-password', value='', placeholder="Contraseña del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'password'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="telefono") Teléfono:
+      input#telefono(type="text", name="telefono", maxlength="20", autocomplete="tel", value=(usuario && usuario.telefono) || '', placeholder="Teléfono del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'telefono'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="direccion") Dirección:
+      input#direccion(type="text", name="direccion", autocomplete="street-address", value=(usuario && usuario.direccion) || '', placeholder="Dirección del usuario opcional")
+      if errores
+        each e in errores
+          if e.campo === 'direccion'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="email") Correo electrónico:
+      input#correo(type="email", name="email", autocomplete="email", value=(usuario && usuario.email) || '', placeholder="Correo electrónico del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'email'
+            span.error= e.mensaje
+
+    .form-group
+      label(for="rol") Rol:
+      select#rol(name="rol", autocomplete="off")
+        option(value="" selected=!(usuario && usuario.rol)) -- Seleccione un rol --
+        each r in roles
+          option(value=r selected=(usuario && usuario.rol === r))= capitalizar(r)
+      if errores
+        each e in errores
+          if e.campo === 'rol'
+            span.error= e.mensaje
+
+    button(type="submit" class="button-create")= modo === 'editar' ? 'Actualizar' : 'Crear'

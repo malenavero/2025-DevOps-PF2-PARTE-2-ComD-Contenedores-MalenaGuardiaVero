@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  h1 #{capitalizar(producto.nombre)}
+
+  .detalle-box
+    p
+      span.detail-label Categoría:
+      | #{capitalizar(producto.categoria)}
+    p
+      span.detail-label Precio:
+      | $#{producto.precio}
+    p
+      span.detail-label Stock:
+      | #{producto.stock}
+    if producto.fechaVencimiento
+      p
+        span.detail-label Vence:
+        | #{new Date(producto.fechaVencimiento).toLocaleDateString("es-AR")}
+    if producto.descripcion
+      p
+        span.detail-label Descripción:
+        | #{producto.descripcion}
+    p
+      span.detail-label Creado:
+      | #{new Date(producto.createdAt).toLocaleString()}
+    p
+      span.detail-label Actualizado:
+      | #{new Date(producto.updatedAt).toLocaleString()}
+
+  a.button-primary(href="/productos") ← Volver al listado

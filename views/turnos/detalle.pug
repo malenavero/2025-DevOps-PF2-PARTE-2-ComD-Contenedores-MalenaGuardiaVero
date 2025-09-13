@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  h1 Detalle de Turno
+
+  .detalle-box
+    p
+      span.detail-label Fecha:
+      | #{turno.fecha.toLocaleDateString("es-AR")}
+    p
+      span.detail-label Hora:
+      | #{turno.hora}
+    p
+      span.detail-label Paciente:
+      | #{capitalizar(turno.pacienteId.nombre || "Desconocido")}
+    p
+      span.detail-label Servicio:
+      | #{capitalizar(turno.servicio)}
+    p
+      span.detail-label Precio:
+      | $#{turno.precio ? turno.precio.toFixed(2) : '0.00'}
+    p
+      span.detail-label Estado de pago:
+      | #{turno.pagado ? 'Pagado' : 'Pendiente'}
+
+  - const responsable = turno.pacienteId.responsable || {}
+
+  h2 Contacto del Responsable
+
+  .detalle-box
+    p
+      span.detail-label Nombre:
+      | #{capitalizar(responsable.nombre || "No disponible")}
+    p
+      span.detail-label Email:
+      | #{responsable.email || "No disponible"}
+    p
+      span.detail-label Teléfono:
+      | #{responsable.telefono || "No disponible"}
+
+  a.button-primary(href="/turnos") ← Volver al listado

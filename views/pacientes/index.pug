@@ -1,0 +1,56 @@
+extends ../layout
+
+block content
+  h1 Lista de Pacientes
+
+  // Filtro por nombre
+  form(method="GET", class="form-box filtros", style="max-width: 500px;")
+    .filtro
+      input(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || '')
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-search
+        |  Buscar
+
+  .acciones-final
+    a(href="/pacientes/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Paciente
+
+  if pacientes.length
+    .tabla-listado
+      table.listado-items
+        thead
+          tr
+            th Nombre
+            th Especie
+            th Raza
+            th Edad
+            th Dueño
+            th Acciones
+        tbody
+          each paciente in pacientes
+            tr
+              td= capitalizar(paciente.nombre)
+              td= capitalizar(paciente.especie)
+              td= paciente.raza
+              td= paciente.edad
+              td= capitalizar(paciente.responsable.nombre)
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/pacientes/${paciente._id}`, class="button button-small")
+                    i.fa.fa-eye
+                    |
+                  a(href=`/pacientes/${paciente._id}/editar`, class="button button-small")
+                    i.fa.fa-pen
+                    |
+                  form(method="POST", action=`/pacientes/${paciente._id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')"
+                    )
+                      i.fa.fa-trash
+                      |
+  else
+    p.sin-resultados No hay pacientes registrados.

@@ -1,0 +1,78 @@
+extends ../layout
+
+block content
+  h1 Productos disponibles
+
+  form(method="GET", class="form-box filtros")
+    .filtro
+      label(for="categoria") Categoría:
+      select#categoria(name="categoria")
+        option(value="" selected=!(categoriaSeleccionada)) Todas las categorías
+        each categoria in categorias
+          option(value=categoria selected=(categoria === categoriaSeleccionada))= categoria
+
+    .filtro
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || "")
+
+    .filtro(style="flex-basis: 100%;")
+      label.checkbox-stock(for="ocultarSinStock")
+        input#ocultarSinStock(type="checkbox", name="ocultarSinStock", checked=ocultarSinStock ? true : false)
+        span Ocultar sin stock
+
+
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-filter
+        |  Filtrar
+
+  .acciones-final(style="text-align: right")
+    a(href="/productos/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Producto
+
+
+  if productos.length
+    table.listado-items
+      thead
+        tr
+          th Nombre
+          th Precio
+          th Stock
+          th Acciones
+          th Agregar al carrito
+      tbody
+        each producto in productos
+          tr
+            td= capitalizar(producto.nombre)
+            td $#{producto.precio.toFixed(2)}
+            td #{producto.stock}
+            td.acciones
+              .acciones-wrapper
+                a(href=`/productos/${producto._id}`, class="button button-small")
+                  i.fa.fa-eye
+                  |
+                a(href=`/productos/${producto._id}/editar`, class="button button-small")
+                  i.fa.fa-pen
+                  |
+                form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
+                  button(type="submit", class="button delete button-small", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')")
+                    i.fa.fa-trash
+                    |
+
+            td.agregar-carrito
+              form(method="POST", action="/carrito/agregar")
+                input(type="hidden", name="productoId", value=producto._id)
+                input(type="hidden", name="cantidad", value=1)
+                input(type="hidden", name="precio", value=producto.precio)
+
+                button(
+                  type="submit",
+                  class="button-primary",
+                  disabled=producto.stock === 0 ? true : false,
+                  title=producto.stock === 0 ? 'Sin stock disponible' : ''
+                )
+                  i.fa.fa-cart-plus
+                  |  Agregar
+  else
+    p.sin-resultados No hay productos disponibles.
