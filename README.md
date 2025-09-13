@@ -1,6 +1,6 @@
 # 2025-DevOps-PF2-PARTE-2-ComD-Contenedores-MalenaGuardiaVero
 
-## Parte 2: Contenerización del Proyecto
+## Parte 2 - Dockerización de un proyecto existente
 
 ### 1. Creación del Repositorio
 
