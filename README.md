@@ -68,8 +68,29 @@ docker-compose down
 ```bash
 docker ps
 ```
+ ## 7. Crear un servicio en Render
+
+ Para esta instancia los pasos que realice son:
+ 1) En render.com cree un nuevo servicio
+ 2) Lo conecte con el repositorio del proyecto
+ 3) Seleccione Environment: Docker
+ 4) Deje el puerto preselecionado: 3000
+ 5) Cree las variables de ambiente necesarias.
 
 
+
+**Deploy:** [https://huellitas-felices-dockerizado.onrender.com](https://huellitas-felices-dockerizado.onrender.com)
+
+### Usuarios de Prueba
+
+| Email                          | Contraseña | Rol         |
+|-------------------------------|------------|-------------|
+| emanuel@huellitasfelices.com  | 12345      | Gerencia    |
+| admin@huellitasfelices.com    | 12345      | Admin       |
+| gonzalo@huellitasfelices.com  | 12345      | Ventas      |
+| susana@huellitasfelices.com   | 12345      | Peluquería  |
+| paula@huellitasfelices.com    | 12345      | Clínica     |
+| cristian@huellitasfelices.com | 12345      | Recepción   |
 
 ---
 # README ORIGINAL DEL PROYECTO
